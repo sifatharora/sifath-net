@@ -45,10 +45,25 @@ Your content here...
 
 Blog categories: `dentistry`, `advocacy`, `community`, `personal`, `education`
 
-## Deploying to sifath.net
+## Deploying to Vercel (automatic)
 
-```bash
-npm run build
-```
+Pushes to `main` trigger a GitHub Action that deploys to Vercel.
 
-Deploy the `dist/` folder to Netlify, Vercel, or Cloudflare Pages.
+### One-time setup
+
+1. **Create a Vercel project** at [vercel.com](https://vercel.com) and import `sifatharora/sifath-net` (or create an empty project named `sifath-net`).
+
+2. **Create a Vercel token** at [vercel.com/account/tokens](https://vercel.com/account/tokens).
+
+3. **Get your Org ID and Project ID** — in your project folder run:
+   ```bash
+   npx vercel link
+   ```
+   Then open `.vercel/project.json` and copy `orgId` and `projectId`.
+
+4. **Add GitHub secrets** at `https://github.com/sifatharora/sifath-net/settings/secrets/actions`:
+   - `VERCEL_TOKEN` — your Vercel token
+   - `VERCEL_ORG_ID` — from `.vercel/project.json`
+   - `VERCEL_PROJECT_ID` — from `.vercel/project.json`
+
+After that, every push to `main` deploys automatically.
