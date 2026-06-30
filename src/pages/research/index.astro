@@ -1,0 +1,53 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const projects = (await getCollection('research'))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<Layout
+  title="Research"
+  description="Research projects by Sifath Arora — science capstones, competitions, and academic work."
+>
+  <div class="container page-header">
+    <p class="section-label">Research</p>
+    <h1>Projects &amp; competitions</h1>
+    <p>
+      Science capstone projects, competition highlights, and research I'm proud of.
+      I'll add new projects here as I continue through high school.
+    </p>
+  </div>
+
+  <div class="container" style="padding-bottom: 4rem;">
+    {projects.length > 0 ? (
+      <div class="card-grid">
+        {projects.map((project) => (
+          <article class="card">
+            <p class="card-meta">
+              {project.data.date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+              })}
+              {project.data.category && ` · ${project.data.category}`}
+            </p>
+            <h3><a href={`/research/${project.slug}`}>{project.data.title}</a></h3>
+            {project.data.award && (
+              <p class="award-badge">{project.data.award}</p>
+            )}
+            <p class="card-desc">{project.data.description}</p>
+            {project.data.tags.length > 0 && (
+              <ul class="tag-list">
+                {project.data.tags.map((tag) => (
+                  <li class="tag">{tag}</li>
+                ))}
+              </ul>
+            )}
+          </article>
+        ))}
+      </div>
+    ) : (
+      <p class="empty-state">No research projects yet. Check back soon!</p>
+    )}
+  </div>
+</Layout>

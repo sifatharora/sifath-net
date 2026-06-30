@@ -1,0 +1,60 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const books = (await getCollection('books'))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+function stars(rating: number) {
+  return '★'.repeat(rating) + '☆'.repeat(5 - rating);
+}
+---
+
+<Layout
+  title="Book Reviews"
+  description="Book reviews by Sifath Arora — science, health, culture, and personal growth."
+>
+  <div class="container page-header">
+    <p class="section-label">Book Reviews</p>
+    <h1>What I'm reading</h1>
+    <p>
+      Reviews of books on science, health, dentistry, culture, and personal growth.
+      I'll update this as I finish new reads.
+    </p>
+  </div>
+
+  <div class="container" style="padding-bottom: 4rem;">
+    {books.length > 0 ? (
+      <div class="card-grid">
+        {books.map((book) => (
+          <article class="card">
+            <p class="card-meta">
+              {book.data.status === 'reading' ? 'Currently reading' : 'Finished'}{' '}
+              &middot;{' '}
+              {book.data.date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+              })}
+            </p>
+            <h3><a href={`/books/${book.slug}`}>{book.data.title}</a></h3>
+            <p class="book-author">by {book.data.author}</p>
+            <p class="rating" aria-label={`${book.data.rating} out of 5 stars`}>
+              {stars(book.data.rating)}
+            </p>
+            <p class="card-desc">{book.data.description}</p>
+          </article>
+        ))}
+      </div>
+    ) : (
+      <p class="empty-state">No book reviews yet. Check back soon!</p>
+    )}
+  </div>
+</Layout>
+
+<style>
+  .book-author {
+    font-style: italic;
+    color: var(--text-muted);
+    margin: -0.25rem 0 0.5rem;
+  }
+</style>

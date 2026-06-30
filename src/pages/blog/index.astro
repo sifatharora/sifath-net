@@ -1,0 +1,86 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog'))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const dentalPosts = posts.filter((p) => p.data.category === 'dentistry');
+const otherPosts = posts.filter((p) => p.data.category !== 'dentistry');
+
+const categoryLabels: Record<string, string> = {
+  dentistry: 'Dentistry',
+  advocacy: 'Advocacy',
+  community: 'Community',
+  personal: 'Personal',
+  education: 'Education',
+};
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  });
+}
+---
+
+<Layout
+  title="Blog"
+  description="Smiles, Science, and Service — Sifath Arora's weekly dental journal and writing on dentistry, education, and community."
+>
+  <div class="container page-header page-header--wide">
+    <p class="section-label">Smiles, Science &amp; Service</p>
+    <h1>Dental journal &amp; blog</h1>
+    <p>
+      Weekly reflections on dentistry, oral health, and my journey through high school —
+      plus writing on education, community, and culture.
+    </p>
+  </div>
+
+  <div class="container blog-page">
+    {dentalPosts.length > 0 && (
+      <>
+        <h2 class="blog-section-title">Dental journal</h2>
+        <ul class="blog-list">
+          {dentalPosts.map((post) => (
+            <li class="blog-list-item">
+              <a href={`/blog/${post.slug}`} class="blog-list-link">
+                <span class="blog-list-title">{post.data.title}</span>
+                <span class="blog-list-meta">{formatDate(post.data.date)}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </>
+    )}
+
+    {otherPosts.length > 0 && (
+      <>
+        <h2 class="blog-section-title">More writing</h2>
+        <ul class="blog-list">
+          {otherPosts.map((post) => (
+            <li class="blog-list-item">
+              <a href={`/blog/${post.slug}`} class="blog-list-link">
+                <span class="blog-list-title">{post.data.title}</span>
+                <span class="blog-list-meta">
+                  {categoryLabels[post.data.category]} &middot; {formatDate(post.data.date)}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </>
+    )}
+
+    {posts.length === 0 && (
+      <p class="empty-state">No posts yet. Check back soon!</p>
+    )}
+  </div>
+</Layout>
+
+<style>
+  .blog-page {
+    padding-bottom: 4rem;
+  }
+</style>

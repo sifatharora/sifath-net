@@ -1,0 +1,53 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const books = await getCollection('books');
+  return books.map((book) => ({
+    params: { slug: book.slug },
+    props: { book },
+  }));
+}
+
+const { book } = Astro.props;
+const { Content } = await book.render();
+
+function stars(rating: number) {
+  return '★'.repeat(rating) + '☆'.repeat(5 - rating);
+}
+---
+
+<Layout title={book.data.title} description={book.data.description}>
+  <article class="container post-page">
+    <header class="post-header">
+      <span class="category-pill">Book Review</span>
+      <h1>{book.data.title}</h1>
+      <div class="post-header-meta">
+        <span class="book-author">by {book.data.author}</span>
+        <span class="rating" aria-label={`${book.data.rating} out of 5 stars`}>
+          {stars(book.data.rating)}
+        </span>
+        <time datetime={book.data.date.toISOString()}>
+          {book.data.status === 'reading' ? 'Currently reading' : 'Finished'}{' '}
+          &middot;{' '}
+          {book.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}
+        </time>
+      </div>
+    </header>
+    <div class="prose">
+      <Content />
+    </div>
+    <a href="/books" class="back-link">&larr; Back to book reviews</a>
+  </article>
+</Layout>
+
+<style>
+  .book-author {
+    font-style: italic;
+  }
+
+  .post-header .category-pill {
+    margin-bottom: 1rem;
+  }
+</style>

@@ -1,0 +1,95 @@
+---
+const year = new Date().getFullYear();
+
+const links = [
+  { href: '/about', label: 'About' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/books', label: 'Books' },
+  { href: '/research', label: 'Research' },
+];
+---
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <p class="footer-name">Sifath Arora</p>
+      <p class="footer-tagline">A weekly exploration into dentistry, science, and service.</p>
+    </div>
+    <nav class="footer-nav" aria-label="Footer navigation">
+      {links.map((link) => (
+        <a href={link.href}>{link.label}</a>
+      ))}
+    </nav>
+    <div class="footer-contact">
+      <a href="mailto:sifathkaurarora@gmail.com">sifathkaurarora@gmail.com</a>
+    </div>
+    <p class="footer-copy">&copy; {year} Sifath Arora</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--border);
+    padding: 3rem 0 2rem;
+    margin-top: 2rem;
+    background: var(--bg-elevated);
+  }
+
+  .footer-inner {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 1.5rem 2rem;
+    align-items: start;
+  }
+
+  .footer-name {
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0 0 0.35rem;
+  }
+
+  .footer-tagline {
+    color: var(--text-muted);
+    margin: 0;
+    font-size: 0.92rem;
+    max-width: 28ch;
+    line-height: 1.5;
+  }
+
+  .footer-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .footer-nav a {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    text-decoration: none;
+  }
+
+  .footer-nav a:hover {
+    color: var(--accent);
+  }
+
+  .footer-contact a {
+    font-size: 0.9rem;
+    text-decoration: none;
+  }
+
+  .footer-copy {
+    grid-column: 1 / -1;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin: 0.5rem 0 0;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 640px) {
+    .footer-inner {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

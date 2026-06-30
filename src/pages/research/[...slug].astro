@@ -1,0 +1,51 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('research');
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await project.render();
+---
+
+<Layout title={project.data.title} description={project.data.description}>
+  <article class="container post-page">
+    <header class="post-header">
+      <span class="category-pill">Research</span>
+      <h1>{project.data.title}</h1>
+      {project.data.award && <p class="award-badge">{project.data.award}</p>}
+      <div class="post-header-meta">
+        <time datetime={project.data.date.toISOString()}>
+          {project.data.date.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+          })}
+        </time>
+        {project.data.category && <span>{project.data.category}</span>}
+      </div>
+      {project.data.tags.length > 0 && (
+        <ul class="tag-list">
+          {project.data.tags.map((tag) => (
+            <li class="tag">{tag}</li>
+          ))}
+        </ul>
+      )}
+    </header>
+    <div class="prose">
+      <Content />
+    </div>
+    <a href="/research" class="back-link">&larr; Back to research</a>
+  </article>
+</Layout>
+
+<style>
+  .post-header .category-pill {
+    margin-bottom: 1rem;
+  }
+</style>

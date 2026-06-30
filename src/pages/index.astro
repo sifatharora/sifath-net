@@ -1,0 +1,192 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog'))
+  .filter((p) => p.data.category === 'dentistry')
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 4);
+---
+
+<Layout
+  title="Home"
+  description="Sifath Arora — freshman at Redmond High School documenting her journey into dentistry through Smiles, Science, and Service."
+>
+  <section class="hero">
+    <div class="container hero-inner">
+      <p class="section-label">Smiles, Science &amp; Service</p>
+      <h1>Sifath Arora</h1>
+      <p class="hero-subtitle">A student's weekly exploration into dentistry</p>
+      <p class="hero-lead">
+        Freshman at Redmond High School documenting my journey into dentistry —
+        through research, reflection, and a commitment to oral health and community.
+      </p>
+      <div class="hero-actions">
+        <a href="/blog" class="btn btn-primary">Read the Dental Journal</a>
+        <a href="/about" class="btn btn-secondary">About Me</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="intro-block">
+        <p class="section-label">About this site</p>
+        <h2>Learning dentistry one week at a time</h2>
+        <p>
+          I created this site to explore dentistry beyond the classroom. Each week I research
+          dental topics, reflect on new ideas, and connect what I learn to the values of
+          service, science, and responsibility that define the profession.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {posts.length > 0 && (
+    <section class="section section-alt">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="section-label">Latest from the journal</p>
+            <h2>Recent posts</h2>
+          </div>
+          <a href="/blog" class="btn-text">View all posts &rarr;</a>
+        </div>
+        <ul class="blog-list">
+          {posts.map((post) => (
+            <li class="blog-list-item">
+              <a href={`/blog/${post.slug}`} class="blog-list-link">
+                <span class="blog-list-title">{post.data.title}</span>
+                <span class="blog-list-meta">
+                  {post.data.date.toLocaleDateString('en-US', {
+                    month: 'short',
+                    day: 'numeric',
+                    year: 'numeric',
+                  })}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  <section class="section">
+    <div class="container">
+      <p class="section-label">Explore</p>
+      <h2>On this site</h2>
+      <div class="card-grid explore-grid">
+        <article class="card explore-card">
+          <span class="explore-icon" aria-hidden="true">01</span>
+          <h3><a href="/blog">Blog</a></h3>
+          <p class="card-desc">Weekly dental journal entries, reflections, and writing on education and community.</p>
+        </article>
+        <article class="card explore-card">
+          <span class="explore-icon" aria-hidden="true">02</span>
+          <h3><a href="/books">Book Reviews</a></h3>
+          <p class="card-desc">Books on science, health, culture, and personal growth.</p>
+        </article>
+        <article class="card explore-card">
+          <span class="explore-icon" aria-hidden="true">03</span>
+          <h3><a href="/research">Research</a></h3>
+          <p class="card-desc">Science capstone projects and competition highlights.</p>
+        </article>
+        <article class="card explore-card">
+          <span class="explore-icon" aria-hidden="true">04</span>
+          <h3><a href="/about">About &amp; Resume</a></h3>
+          <p class="card-desc">My story, interests, activities, and achievements.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .hero {
+    padding: clamp(4rem, 10vw, 6.5rem) 0 clamp(3rem, 7vw, 5rem);
+    background:
+      radial-gradient(ellipse 80% 60% at 90% 0%, rgba(220, 238, 233, 0.7) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 0% 100%, rgba(220, 238, 233, 0.4) 0%, transparent 55%),
+      var(--bg);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-inner {
+    max-width: 38rem;
+  }
+
+  .hero-subtitle {
+    font-family: var(--font-serif);
+    font-size: 1.35rem;
+    font-style: italic;
+    color: var(--accent-dark);
+    margin: -0.25rem 0 1.25rem;
+  }
+
+  .hero-lead {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+  }
+
+  .intro-block {
+    max-width: 42rem;
+  }
+
+  .intro-block h2 {
+    margin-bottom: 1rem;
+  }
+
+  .intro-block p {
+    color: var(--text-muted);
+    font-size: 1.08rem;
+    line-height: 1.75;
+  }
+
+  .section-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .section-head h2 {
+    margin: 0;
+  }
+
+  .explore-grid {
+    margin-top: 1.5rem;
+  }
+
+  .explore-card {
+    position: relative;
+    padding-top: 2.25rem;
+  }
+
+  .explore-icon {
+    position: absolute;
+    top: 1.25rem;
+    left: 1.65rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    opacity: 0.7;
+  }
+
+  @media (max-width: 640px) {
+    .section-head {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

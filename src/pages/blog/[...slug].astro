@@ -1,0 +1,58 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+const categoryLabels: Record<string, string> = {
+  dentistry: 'Dentistry',
+  advocacy: 'Advocacy',
+  community: 'Community',
+  personal: 'Personal',
+  education: 'Education',
+};
+---
+
+<Layout title={post.data.title} description={post.data.description}>
+  <article class="container post-page">
+    <header class="post-header">
+      <span class="category-pill">{categoryLabels[post.data.category]}</span>
+      <h1>{post.data.title}</h1>
+      <div class="post-header-meta">
+        <time datetime={post.data.date.toISOString()}>
+          {post.data.date.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          })}
+        </time>
+      </div>
+      {post.data.tags.length > 0 && (
+        <ul class="tag-list">
+          {post.data.tags.map((tag) => (
+            <li class="tag">{tag}</li>
+          ))}
+        </ul>
+      )}
+    </header>
+    <div class="prose">
+      <Content />
+    </div>
+    <a href="/blog" class="back-link">&larr; Back to blog</a>
+  </article>
+</Layout>
+
+<style>
+  .post-header .category-pill {
+    margin-bottom: 1rem;
+  }
+</style>
