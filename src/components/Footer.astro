@@ -1,4 +1,6 @@
 ---
+import { site } from '../site';
+
 const year = new Date().getFullYear();
 
 const links = [
@@ -21,7 +23,8 @@ const links = [
       ))}
     </nav>
     <div class="footer-contact">
-      <a href="mailto:sifathkaurarora@gmail.com">sifathkaurarora@gmail.com</a>
+      <a href={`mailto:${site.email}`}>{site.email}</a>
+      <a href={site.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
     </div>
     <p class="footer-copy">&copy; {year} Sifath Arora</p>
   </div>
@@ -71,6 +74,12 @@ const links = [
 
   .footer-nav a:hover {
     color: var(--accent);
+  }
+
+  .footer-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
   }
 
   .footer-contact a {

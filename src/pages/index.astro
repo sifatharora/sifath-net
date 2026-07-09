@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import SocialLinks from '../components/SocialLinks.astro';
 import { getCollection } from 'astro:content';
 
 const allPosts = await getCollection('blog');
@@ -39,6 +40,7 @@ const weekCount = journalPosts.reduce((max, post) => {
           <span class="meta-chip">Week {weekCount} of the journal</span>
           <span class="meta-chip">Chemistry · Biology · Service</span>
         </div>
+        <SocialLinks />
       </div>
 
       {latest && (
@@ -178,6 +180,7 @@ const weekCount = journalPosts.reduce((max, post) => {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
+    margin-bottom: 1.25rem;
   }
 
   .meta-chip {

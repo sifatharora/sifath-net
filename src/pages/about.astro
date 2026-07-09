@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import SocialLinks from '../components/SocialLinks.astro';
 ---
 
 <Layout
@@ -30,7 +31,7 @@ import Layout from '../layouts/Layout.astro';
         </div>
         <div class="fact">
           <dt>Contact</dt>
-          <dd><a href="mailto:sifathkaurarora@gmail.com">sifathkaurarora@gmail.com</a></dd>
+          <dd><SocialLinks variant="stacked" /></dd>
         </div>
       </dl>
     </div>
@@ -229,6 +230,10 @@ import Layout from '../layouts/Layout.astro';
     font-size: 0.95rem;
     color: var(--text);
     line-height: 1.5;
+  }
+
+  .fact dd :global(.social-links) {
+    margin-top: 0.15rem;
   }
 
   .about-body {
