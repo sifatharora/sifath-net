@@ -2,68 +2,107 @@
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 
-const posts = (await getCollection('blog'))
+const allPosts = await getCollection('blog');
+const researchProjects = await getCollection('research');
+const journalPosts = allPosts
   .filter((p) => p.data.category === 'dentistry')
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, 4);
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const latest = journalPosts[0];
+const recent = journalPosts.slice(0, 4);
+const weekCount = journalPosts.length;
 ---
 
 <Layout
   title="Home"
-  description="Sifath Arora — freshman at Redmond High School documenting her journey into dentistry through Smiles, Science, and Service."
+  description="Sifath Arora — freshman at Redmond High School exploring dentistry through research, chemistry, and community service."
 >
   <section class="hero">
-    <div class="container hero-inner">
-      <p class="section-label">Smiles, Science &amp; Service</p>
-      <h1>Sifath Arora</h1>
-      <p class="hero-subtitle">A student's weekly exploration into dentistry</p>
-      <p class="hero-lead">
-        Freshman at Redmond High School documenting my journey into dentistry —
-        through research, reflection, and a commitment to oral health and community.
-      </p>
-      <div class="hero-actions">
-        <a href="/blog" class="btn btn-primary">Read the Dental Journal</a>
-        <a href="/about" class="btn btn-secondary">About Me</a>
+    <div class="container hero-grid">
+      <div class="hero-main">
+        <p class="section-label">Smiles, Science &amp; Service</p>
+        <h1>Sifath Arora</h1>
+        <p class="hero-lead">
+          Freshman at Redmond High exploring dentistry — one journal entry at a time.
+        </p>
+        <div class="hero-meta">
+          <span class="meta-chip">Week {weekCount} of the journal</span>
+          <span class="meta-chip">Chemistry · Biology · Service</span>
+        </div>
+      </div>
+
+      {latest && (
+        <a href={`/blog/${latest.slug}`} class="featured-card">
+          <span class="featured-label">Latest entry</span>
+          <h2>{latest.data.title.replace(/^Week \d+ – /, '')}</h2>
+          <p>{latest.data.description}</p>
+          <span class="featured-link">
+            Read week {weekCount} &rarr;
+          </span>
+        </a>
+      )}
+    </div>
+  </section>
+
+  <section class="section stats-bar">
+    <div class="container stats-grid">
+      <div class="stat">
+        <span class="stat-num">{weekCount}</span>
+        <span class="stat-label">Journal weeks</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">{allPosts.length}</span>
+        <span class="stat-label">Total posts</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">4.0</span>
+        <span class="stat-label">GPA</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">{researchProjects.length}</span>
+        <span class="stat-label">Research projects</span>
       </div>
     </div>
   </section>
 
   <section class="section">
     <div class="container">
-      <div class="intro-block">
-        <p class="section-label">About this site</p>
-        <h2>Learning dentistry one week at a time</h2>
-        <p>
-          I created this site to explore dentistry beyond the classroom. Each week I research
-          dental topics, reflect on new ideas, and connect what I learn to the values of
-          service, science, and responsibility that define the profession.
-        </p>
+      <div class="highlight-card">
+        <div class="highlight-content">
+          <p class="section-label">Project</p>
+          <h2>Care Collective</h2>
+          <p>
+            A community initiative I founded to collect and distribute dental care supplies
+            to families who need them — turning oral health access into something tangible.
+          </p>
+        </div>
+        <a href="/research/care-collective" class="highlight-link">Learn more &rarr;</a>
       </div>
     </div>
   </section>
 
-  {posts.length > 0 && (
+  {recent.length > 0 && (
     <section class="section section-alt">
       <div class="container">
         <div class="section-head">
           <div>
-            <p class="section-label">Latest from the journal</p>
-            <h2>Recent posts</h2>
+            <p class="section-label">Dental journal</p>
+            <h2>Recent weeks</h2>
           </div>
-          <a href="/blog" class="btn-text">View all posts &rarr;</a>
+          <a href="/blog" class="btn-text">All posts &rarr;</a>
         </div>
-        <ul class="blog-list">
-          {posts.map((post) => (
-            <li class="blog-list-item">
-              <a href={`/blog/${post.slug}`} class="blog-list-link">
-                <span class="blog-list-title">{post.data.title}</span>
-                <span class="blog-list-meta">
+        <ul class="journal-grid">
+          {recent.map((post, i) => (
+            <li>
+              <a href={`/blog/${post.slug}`} class="journal-card">
+                <span class="journal-week">Week {weekCount - i}</span>
+                <span class="journal-title">{post.data.title.replace(/^Week \d+ – /, '')}</span>
+                <time datetime={post.data.date.toISOString()}>
                   {post.data.date.toLocaleDateString('en-US', {
                     month: 'short',
                     day: 'numeric',
-                    year: 'numeric',
                   })}
-                </span>
+                </time>
               </a>
             </li>
           ))}
@@ -75,80 +114,185 @@ const posts = (await getCollection('blog'))
   <section class="section">
     <div class="container">
       <p class="section-label">Explore</p>
-      <h2>On this site</h2>
-      <div class="card-grid explore-grid">
-        <article class="card explore-card">
-          <span class="explore-icon" aria-hidden="true">01</span>
-          <h3><a href="/blog">Blog</a></h3>
-          <p class="card-desc">Weekly dental journal entries, reflections, and writing on education and community.</p>
-        </article>
-        <article class="card explore-card">
-          <span class="explore-icon" aria-hidden="true">02</span>
-          <h3><a href="/books">Book Reviews</a></h3>
-          <p class="card-desc">Books on science, health, culture, and personal growth.</p>
-        </article>
-        <article class="card explore-card">
-          <span class="explore-icon" aria-hidden="true">03</span>
-          <h3><a href="/research">Research</a></h3>
-          <p class="card-desc">Science capstone projects and competition highlights.</p>
-        </article>
-        <article class="card explore-card">
-          <span class="explore-icon" aria-hidden="true">04</span>
-          <h3><a href="/about">About &amp; Resume</a></h3>
-          <p class="card-desc">My story, interests, activities, and achievements.</p>
-        </article>
-      </div>
+      <nav class="explore-nav" aria-label="Site sections">
+        <a href="/blog" class="explore-link">
+          <span class="explore-name">Blog</span>
+          <span class="explore-desc">Weekly dental journal &amp; writing</span>
+        </a>
+        <a href="/research" class="explore-link">
+          <span class="explore-name">Research</span>
+          <span class="explore-desc">Capstone projects &amp; Care Collective</span>
+        </a>
+        <a href="/books" class="explore-link">
+          <span class="explore-name">Books</span>
+          <span class="explore-desc">Science, health &amp; culture reviews</span>
+        </a>
+        <a href="/about" class="explore-link">
+          <span class="explore-name">About</span>
+          <span class="explore-desc">Story, activities &amp; resume</span>
+        </a>
+      </nav>
     </div>
   </section>
 </Layout>
 
 <style>
   .hero {
-    padding: clamp(4rem, 10vw, 6.5rem) 0 clamp(3rem, 7vw, 5rem);
+    padding: clamp(3.5rem, 8vw, 5.5rem) 0 clamp(2.5rem, 5vw, 3.5rem);
     background:
-      radial-gradient(ellipse 80% 60% at 90% 0%, rgba(220, 238, 233, 0.7) 0%, transparent 60%),
-      radial-gradient(ellipse 50% 40% at 0% 100%, rgba(220, 238, 233, 0.4) 0%, transparent 55%),
+      radial-gradient(ellipse 70% 50% at 100% 0%, rgba(220, 238, 233, 0.6) 0%, transparent 55%),
       var(--bg);
     border-bottom: 1px solid var(--border);
   }
 
-  .hero-inner {
-    max-width: 38rem;
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: start;
   }
 
-  .hero-subtitle {
-    font-family: var(--font-serif);
-    font-size: 1.35rem;
-    font-style: italic;
-    color: var(--accent-dark);
-    margin: -0.25rem 0 1.25rem;
+  .hero-main h1 {
+    margin-bottom: 0.75rem;
   }
 
   .hero-lead {
-    font-size: 1.1rem;
+    font-size: 1.08rem;
     color: var(--text-muted);
-    line-height: 1.7;
-    margin-bottom: 2rem;
+    line-height: 1.65;
+    max-width: 32ch;
+    margin-bottom: 1.25rem;
   }
 
-  .hero-actions {
+  .hero-meta {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.85rem;
+    gap: 0.5rem;
   }
 
-  .intro-block {
-    max-width: 42rem;
+  .meta-chip {
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    background: var(--accent-light);
+    color: var(--accent-dark);
   }
 
-  .intro-block h2 {
+  .featured-card {
+    display: block;
+    padding: 1.75rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+
+  .featured-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+    border-color: #c8d9d4;
+  }
+
+  .featured-label {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.65rem;
+  }
+
+  .featured-card h2 {
+    font-size: 1.45rem;
+    margin-bottom: 0.65rem;
+    line-height: 1.25;
+  }
+
+  .featured-card p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.6;
     margin-bottom: 1rem;
   }
 
-  .intro-block p {
+  .featured-link {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .featured-card:hover .featured-link {
+    color: var(--accent-dark);
+  }
+
+  .stats-bar {
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .stat-num {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent-dark);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .stat-label {
+    font-size: 0.78rem;
+    font-weight: 500;
     color: var(--text-muted);
-    font-size: 1.08rem;
-    line-height: 1.75;
+    letter-spacing: 0.02em;
+  }
+
+  .highlight-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 2rem 2.25rem;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+
+  .highlight-content h2 {
+    margin-bottom: 0.5rem;
+    font-size: 1.65rem;
+  }
+
+  .highlight-content p {
+    color: var(--text-muted);
+    margin: 0;
+    max-width: 48ch;
+    line-height: 1.65;
+  }
+
+  .highlight-link {
+    flex-shrink: 0;
+    font-weight: 600;
+    font-size: 0.92rem;
+    text-decoration: none;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  .highlight-link:hover {
+    color: var(--accent-dark);
+    text-decoration: underline;
   }
 
   .section-head {
@@ -163,24 +307,141 @@ const posts = (await getCollection('blog'))
     margin: 0;
   }
 
-  .explore-grid {
-    margin-top: 1.5rem;
+  .journal-grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.85rem;
   }
 
-  .explore-card {
-    position: relative;
-    padding-top: 2.25rem;
+  .journal-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 1.15rem 1.35rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.15s, border-color 0.15s;
   }
 
-  .explore-icon {
-    position: absolute;
-    top: 1.25rem;
-    left: 1.65rem;
+  .journal-card:hover {
+    background: var(--bg-soft);
+    border-color: #c8d9d4;
+  }
+
+  .journal-week {
     font-size: 0.72rem;
     font-weight: 600;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
     color: var(--accent);
-    opacity: 0.7;
+  }
+
+  .journal-title {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--text);
+  }
+
+  .journal-card:hover .journal-title {
+    color: var(--accent-dark);
+  }
+
+  .journal-card time {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+
+  .explore-nav {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin-top: 1.25rem;
+  }
+
+  .explore-link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding: 1.25rem 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    border-bottom: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+
+  .explore-link:nth-child(2n) {
+    border-right: none;
+  }
+
+  .explore-link:nth-last-child(-n+2) {
+    border-bottom: none;
+  }
+
+  .explore-link:hover {
+    background: var(--bg-soft);
+  }
+
+  .explore-name {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .explore-link:hover .explore-name {
+    color: var(--accent-dark);
+  }
+
+  .explore-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  @media (max-width: 768px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .highlight-card {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .journal-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .explore-nav {
+      grid-template-columns: 1fr;
+    }
+
+    .explore-link {
+      border-right: none;
+    }
+
+    .explore-link:nth-last-child(-n+2) {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .explore-link:last-child {
+      border-bottom: none;
+    }
   }
 
   @media (max-width: 640px) {

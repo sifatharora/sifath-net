@@ -4,171 +4,328 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout
   title="About"
-  description="Learn about Sifath Arora — a Redmond High School freshman passionate about dentistry, science, music, and community advocacy."
+  description="Learn about Sifath Arora — a Redmond High School freshman passionate about dentistry, chemistry, music, and community advocacy."
 >
-  <div class="container page-header page-header--wide">
-    <p class="section-label">About Me</p>
-    <h1>Hi, I'm Sifath</h1>
-    <p>
-      Freshman at Redmond High School exploring dentistry, science, and community advocacy.
-      <a href="mailto:sifathkaurarora@gmail.com">sifathkaurarora@gmail.com</a>
-    </p>
+  <div class="about-hero">
+    <div class="container about-hero-inner">
+      <div class="about-intro">
+        <p class="section-label">About</p>
+        <h1>Sifath Arora</h1>
+        <p class="about-tagline">
+          Freshman at Redmond High · aspiring dentist · community builder
+        </p>
+      </div>
+      <dl class="about-facts">
+        <div class="fact">
+          <dt>School</dt>
+          <dd>Redmond High School, 9th grade</dd>
+        </div>
+        <div class="fact">
+          <dt>GPA</dt>
+          <dd>4.0</dd>
+        </div>
+        <div class="fact">
+          <dt>Currently</dt>
+          <dd>Chemistry &amp; biology coursework</dd>
+        </div>
+        <div class="fact">
+          <dt>Contact</dt>
+          <dd><a href="mailto:sifathkaurarora@gmail.com">sifathkaurarora@gmail.com</a></dd>
+        </div>
+      </dl>
+    </div>
   </div>
 
-  <div class="container prose">
-    <p>
-      Hi! My name is Sifath Arora, and I'm a freshman at Redmond High School. I've always
-      been interested in science, especially topics related to health, which is what first
-      got me thinking about dentistry. I like that dentistry is hands-on and allows you to
-      help people feel more confident through their smiles. It's a career that combines
-      problem-solving, creativity, and working closely with others, which really appeals to me.
-    </p>
+  <div class="container about-body">
+    <section class="about-section">
+      <h2>What drives me</h2>
+      <div class="about-columns">
+        <p>
+          I've always gravitated toward science — especially anything connected to health.
+          Dentistry caught my attention because it's hands-on, creative, and deeply personal.
+          Helping someone feel confident in their smile is a kind of care that stays with them.
+        </p>
+        <p>
+          This year I'm taking chemistry, and it's changed how I think about the dental topics
+          I write about each week. Understanding ions, pH, and chemical bonding gives me a
+          deeper lens on enamel, cavities, and the science behind everyday oral health.
+        </p>
+      </div>
+    </section>
 
-    <p>
-      Outside of school, I enjoy staying involved in different activities and pushing myself
-      to learn new skills. I play violin as First Chair in orchestra, compete on varsity
-      slow-pitch softball, and have spent eight years in Destination Imagination — advancing
-      to Global Finals five times and earning 10th place worldwide in the improvisational challenge.
-    </p>
+    <section class="about-section">
+      <h2>Beyond the classroom</h2>
+      <ul class="activity-list">
+        <li>
+          <strong>First Chair Violin</strong>
+          <span>School orchestra — eight years of performance and discipline</span>
+        </li>
+        <li>
+          <strong>Varsity Slow-Pitch Softball</strong>
+          <span>Teamwork and competition at the varsity level</span>
+        </li>
+        <li>
+          <strong>Destination Imagination</strong>
+          <span>8 years · 5× Global Finalist · 10th worldwide in improv</span>
+        </li>
+        <li>
+          <strong>Sikh Advocacy Day</strong>
+          <span>Civic engagement with state legislators on inclusive education</span>
+        </li>
+        <li>
+          <strong>Religious School Volunteer</strong>
+          <span>Weekly — teaching Punjabi, Sikh history, and core academics</span>
+        </li>
+      </ul>
+    </section>
 
-    <p>
-      I'm also deeply committed to advocacy and education. I've participated in Sikh Advocacy
-      Day with state legislators, volunteer weekly at a religious school teaching Punjabi,
-      Sikh history, and core academics, and write about Sikh identity, student experiences,
-      and cultural representation on my blog.
-    </p>
+    <section class="about-section project-spotlight">
+      <div class="project-card">
+        <p class="section-label">Featured project</p>
+        <h2>Care Collective</h2>
+        <p>
+          I founded Care Collective to address a gap I kept noticing — families who want
+          good oral health but can't always afford basic supplies. We organize donation drives
+          for toothbrushes, toothpaste, floss, and educational materials, then distribute them
+          through community partners.
+        </p>
+        <p>
+          It's my way of connecting the science I learn with the service I believe in.
+          Dentistry isn't just a career I'm exploring — it's a responsibility to the
+          communities around me.
+        </p>
+        <a href="/research/care-collective" class="project-link">Read about the project &rarr;</a>
+      </div>
+    </section>
 
-    <p>
-      This website is a place where I document my interests, growth, and experiences as I
-      explore dentistry and move through high school.
-    </p>
-
-    <h2>Interests</h2>
-    <ul class="interest-tags">
-      <li>Dentistry</li>
-      <li>Biology</li>
-      <li>Healthcare</li>
-      <li>Community Service</li>
-      <li>Education</li>
-      <li>Cultural Advocacy</li>
-      <li>Music</li>
-      <li>Public Speaking</li>
-    </ul>
+    <section class="about-section">
+      <h2>Interests</h2>
+      <ul class="interest-tags">
+        <li>Dentistry</li>
+        <li>Chemistry</li>
+        <li>Biology</li>
+        <li>Community Service</li>
+        <li>Cultural Advocacy</li>
+        <li>Music</li>
+        <li>Research</li>
+        <li>Public Speaking</li>
+      </ul>
+    </section>
   </div>
 
   <div class="container resume-block" id="resume">
     <p class="section-label">Resume</p>
-    <h2>Sifath Arora</h2>
+    <h2>Experience &amp; achievements</h2>
 
-    <section class="resume-section">
-      <h3>Education</h3>
-      <div class="resume-item">
-        <strong>Redmond High School</strong>
-        <span>Redmond, WA &mdash; 9th Grade | GPA: 4.0</span>
-      </div>
-    </section>
+    <div class="resume-grid">
+      <section class="resume-section">
+        <h3>Education</h3>
+        <div class="resume-item">
+          <strong>Redmond High School</strong>
+          <span>Redmond, WA — 9th Grade · GPA 4.0</span>
+        </div>
+      </section>
 
-    <section class="resume-section">
-      <h3>Skills</h3>
-      <ul>
-        <li>Strong written and verbal communication</li>
-        <li>Leadership and mentorship abilities</li>
-        <li>Public speaking and advocacy experience</li>
-        <li>Experience working with elementary and middle school students</li>
-        <li>Research and presentation skills</li>
-        <li>Organized, responsible, and dependable</li>
-        <li>Team collaboration and time management</li>
-      </ul>
-    </section>
+      <section class="resume-section">
+        <h3>Projects</h3>
+        <div class="resume-item">
+          <strong>Care Collective</strong>
+          <span>Founder</span>
+          <p>Community initiative collecting and distributing dental care supplies to underserved families.</p>
+        </div>
+        <div class="resume-item">
+          <strong>Life Science &amp; Dentistry Capstone</strong>
+          <span>3rd Place</span>
+          <p>Research project exploring connections between life science and dentistry.</p>
+        </div>
+      </section>
 
-    <section class="resume-section">
-      <h3>Extracurricular Activities</h3>
-      <div class="resume-item">
-        <strong>Varsity Slow-Pitch Softball</strong>
-        <span>Redmond High School</span>
-        <p>Selected to compete at the varsity level, demonstrating teamwork, discipline, and commitment to team success.</p>
-      </div>
-      <div class="resume-item">
-        <strong>Orchestra (Violin, First Chair)</strong>
-        <p>Perform as First Chair Violinist, demonstrating musical excellence, leadership, and dedication.</p>
-      </div>
-      <div class="resume-item">
-        <strong>Destination Imagination</strong>
-        <p>Competed for 8 years and advanced to Global Finals 5 times. Earned 10th Place Worldwide in the Improvisational Challenge at Global Finals.</p>
-      </div>
-      <div class="resume-item">
-        <strong>Badminton</strong>
-        <p>Participate in recreational and school-level play, building agility, discipline, and sportsmanship.</p>
-      </div>
-      <div class="resume-item">
-        <strong>DECA</strong>
-        <p>Prepared roleplay and case-study presentations in Business Law and Ethics.</p>
-      </div>
-      <div class="resume-item">
-        <strong>Dental Supply Drives (Planned)</strong>
-        <p>Organizing community initiatives to promote oral health access and awareness.</p>
-      </div>
-      <div class="resume-item">
-        <strong>Science Olympiad</strong>
-        <p>Key middle school team member, earning Top 3 placements in multiple regional and state competitions.</p>
-      </div>
-      <div class="resume-item">
-        <strong>National Junior Honor Society</strong>
-        <p>Active member contributing to service projects and leadership initiatives.</p>
-      </div>
-    </section>
+      <section class="resume-section">
+        <h3>Leadership &amp; Advocacy</h3>
+        <div class="resume-item">
+          <strong>Sikh Advocacy Day Participant</strong>
+          <p>Advocated for inclusive education and Sikh representation in curriculum with state legislators.</p>
+        </div>
+        <div class="resume-item">
+          <strong>Education &amp; Culture Blog Creator</strong>
+          <p>Weekly dental journal and writing on Sikh identity, student experiences, and cultural representation.</p>
+        </div>
+      </section>
 
-    <section class="resume-section">
-      <h3>Leadership &amp; Advocacy</h3>
-      <div class="resume-item">
-        <strong>Sikh Advocacy Day Participant</strong>
-        <p>Engaged in civic discussions with state legislators. Advocated for inclusive education and Sikh representation in curriculum.</p>
-      </div>
-      <div class="resume-item">
-        <strong>Education &amp; Culture Blog Creator</strong>
-        <p>Research and publish content focused on Sikh identity, student experiences, and cultural representation.</p>
-      </div>
-    </section>
+      <section class="resume-section">
+        <h3>Volunteer</h3>
+        <div class="resume-item">
+          <strong>Religious School Volunteer</strong>
+          <span>Federal Way, WA — Weekly</span>
+          <p>Teach Punjabi, Sikh history, and core academics. Organize math competitions and mentor students.</p>
+        </div>
+      </section>
 
-    <section class="resume-section">
-      <h3>Volunteer Experience</h3>
-      <div class="resume-item">
-        <strong>Religious School Volunteer</strong>
-        <span>Federal Way, WA (Weekly)</span>
-        <p>Teach Punjabi language, Sikh history, cultural hymns, and core academic subjects to underprivileged students. Organized and led math competitions and mentor students in cultural awareness and leadership.</p>
-      </div>
-    </section>
+      <section class="resume-section">
+        <h3>Activities</h3>
+        <ul class="compact-list">
+          <li>Varsity Slow-Pitch Softball</li>
+          <li>Orchestra — First Chair Violin</li>
+          <li>Destination Imagination (5× Global Finalist)</li>
+          <li>DECA — Business Law &amp; Ethics</li>
+          <li>Science Olympiad — Top 3 regional &amp; state</li>
+          <li>National Junior Honor Society</li>
+        </ul>
+      </section>
 
-    <section class="resume-section">
-      <h3>Achievements</h3>
-      <ul>
-        <li>10th Place Worldwide, Destination Imagination Global Finals (Improvisational Challenge)</li>
-        <li>Regional Winner, Sikh Youth Symposium</li>
-        <li>3rd Place, Life Science &amp; Dentistry Research Capstone Project</li>
-        <li>Winner, Research Capstone Final Contact Contest</li>
-        <li>First Chair Violinist, School Orchestra</li>
-        <li>5-Time Destination Imagination Global Finalist</li>
-        <li>Sikh Advocacy Day Participant</li>
-        <li>Top 3 placements in Science Olympiad regional and state competitions</li>
-      </ul>
-    </section>
-
-    <h2>Get in touch</h2>
-    <p>
-      I'd love to connect! Reach me at
-      <a href="mailto:sifathkaurarora@gmail.com">sifathkaurarora@gmail.com</a>.
-    </p>
+      <section class="resume-section">
+        <h3>Achievements</h3>
+        <ul class="compact-list">
+          <li>10th Place Worldwide, DI Global Finals (Improv)</li>
+          <li>Regional Winner, Sikh Youth Symposium</li>
+          <li>3rd Place, Life Science &amp; Dentistry Capstone</li>
+          <li>Winner, Research Capstone Final Contact Contest</li>
+          <li>First Chair Violinist, School Orchestra</li>
+        </ul>
+      </section>
+    </div>
   </div>
 </Layout>
 
 <style>
+  .about-hero {
+    padding: clamp(3rem, 7vw, 4.5rem) 0;
+    background: var(--bg-soft);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .about-hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: end;
+  }
+
+  .about-tagline {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .about-facts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin: 0;
+  }
+
+  .fact dt {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.25rem;
+  }
+
+  .fact dd {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  .about-body {
+    padding: clamp(2.5rem, 6vw, 4rem) 0;
+  }
+
+  .about-section {
+    margin-bottom: 3rem;
+  }
+
+  .about-section h2 {
+    font-size: 1.65rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .about-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .about-columns p {
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.75;
+  }
+
+  .activity-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .activity-list li {
+    display: grid;
+    grid-template-columns: 11rem 1fr;
+    gap: 1rem;
+    padding: 1rem 1.35rem;
+    border-bottom: 1px solid var(--border);
+    align-items: baseline;
+  }
+
+  .activity-list li:last-child {
+    border-bottom: none;
+  }
+
+  .activity-list strong {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    color: var(--text);
+  }
+
+  .activity-list span {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+  }
+
+  .project-spotlight {
+    margin-bottom: 3rem;
+  }
+
+  .project-card {
+    padding: 2rem 2.25rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    border-left: 4px solid var(--accent);
+  }
+
+  .project-card h2 {
+    margin-bottom: 0.75rem;
+  }
+
+  .project-card p {
+    color: var(--text-muted);
+    line-height: 1.75;
+    max-width: 60ch;
+  }
+
+  .project-link {
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-weight: 600;
+    font-size: 0.92rem;
+    text-decoration: none;
+  }
+
   .interest-tags {
     display: flex;
     flex-wrap: wrap;
     gap: 0.65rem;
     list-style: none;
     padding: 0;
-    margin: 0 0 2rem;
+    margin: 0;
   }
 
   .interest-tags li {
@@ -183,11 +340,44 @@ import Layout from '../layouts/Layout.astro';
   .resume-block {
     padding-bottom: 4rem;
     border-top: 1px solid var(--border);
-    margin-top: 3rem;
     padding-top: 3rem;
   }
 
-  .resume-block h2 {
+  .resume-block > h2 {
     margin-bottom: 2rem;
+  }
+
+  .resume-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem 3rem;
+  }
+
+  .compact-list {
+    padding-left: 1.25rem;
+    margin: 0;
+  }
+
+  .compact-list li {
+    margin-bottom: 0.45rem;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+  }
+
+  @media (max-width: 768px) {
+    .about-hero-inner,
+    .about-columns,
+    .resume-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .about-facts {
+      grid-template-columns: 1fr;
+    }
+
+    .activity-list li {
+      grid-template-columns: 1fr;
+      gap: 0.25rem;
+    }
   }
 </style>
