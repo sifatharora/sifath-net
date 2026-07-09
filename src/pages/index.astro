@@ -4,13 +4,23 @@ import { getCollection } from 'astro:content';
 
 const allPosts = await getCollection('blog');
 const researchProjects = await getCollection('research');
+
+function getWeekNumber(title: string) {
+  const match = title.match(/^Week (\d+)/);
+  return match ? Number(match[1]) : null;
+}
+
 const journalPosts = allPosts
   .filter((p) => p.data.category === 'dentistry')
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
 const latest = journalPosts[0];
 const recent = journalPosts.slice(0, 4);
-const weekCount = journalPosts.length;
+const latestWeek = latest ? getWeekNumber(latest.data.title) : null;
+const weekCount = journalPosts.reduce((max, post) => {
+  const week = getWeekNumber(post.data.title);
+  return week && week > max ? week : max;
+}, 0);
 ---
 
 <Layout
@@ -37,7 +47,7 @@ const weekCount = journalPosts.length;
           <h2>{latest.data.title.replace(/^Week \d+ – /, '')}</h2>
           <p>{latest.data.description}</p>
           <span class="featured-link">
-            Read week {weekCount} &rarr;
+            Read week {latestWeek} &rarr;
           </span>
         </a>
       )}
@@ -92,10 +102,10 @@ const weekCount = journalPosts.length;
           <a href="/blog" class="btn-text">All posts &rarr;</a>
         </div>
         <ul class="journal-grid">
-          {recent.map((post, i) => (
+          {recent.map((post) => (
             <li>
               <a href={`/blog/${post.slug}`} class="journal-card">
-                <span class="journal-week">Week {weekCount - i}</span>
+                <span class="journal-week">Week {getWeekNumber(post.data.title) ?? '—'}</span>
                 <span class="journal-title">{post.data.title.replace(/^Week \d+ – /, '')}</span>
                 <time datetime={post.data.date.toISOString()}>
                   {post.data.date.toLocaleDateString('en-US', {
