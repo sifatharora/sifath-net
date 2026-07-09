@@ -10,6 +10,14 @@ import SocialLinks from '../components/SocialLinks.astro';
   <div class="about-hero">
     <div class="container about-hero-inner">
       <div class="about-intro">
+        <img
+          src="/images/sifath.jpg"
+          alt="Sifath Arora"
+          class="about-photo"
+          width="140"
+          height="140"
+          loading="eager"
+        />
         <p class="section-label">About</p>
         <h1>Sifath Arora</h1>
         <p class="about-tagline">
@@ -200,6 +208,23 @@ import SocialLinks from '../components/SocialLinks.astro';
     grid-template-columns: 1fr 1fr;
     gap: 3rem;
     align-items: end;
+  }
+
+  .about-intro {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .about-photo {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+    border: 3px solid var(--bg-elevated);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 0.25rem;
   }
 
   .about-tagline {
