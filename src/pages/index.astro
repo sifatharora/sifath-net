@@ -31,7 +31,7 @@ const weekCount = journalPosts.reduce((max, post) => {
   <section class="hero">
     <div class="container hero-grid">
       <div class="hero-main">
-        <p class="section-label">Hi</p>
+        <p class="hero-greeting">Hi</p>
         <h1>Sifath Arora</h1>
         <p class="hero-lead">
           Freshman at Redmond High exploring dentistry — one journal entry at a time.
@@ -166,6 +166,15 @@ const weekCount = journalPosts.reduce((max, post) => {
 
   .hero-main h1 {
     margin-bottom: 0.75rem;
+  }
+
+  .hero-greeting {
+    font-family: var(--font-serif);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    color: var(--accent-dark);
+    margin: 0 0 0.5rem;
+    letter-spacing: -0.01em;
   }
 
   .hero-lead {
