@@ -9,7 +9,7 @@ interface Props {
 
 const { title, description = 'Sifath Arora — exploring dentistry, science, advocacy, and community through high school.' } = Astro.props;
 const fullTitle = title === 'Home' ? 'Sifath Arora' : `${title} | Sifath Arora`;
-const iconVersion = '2';
+const iconVersion = '3';
 ---
 
 <!doctype html>
@@ -23,7 +23,7 @@ const iconVersion = '2';
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://sifath.net" />
-    <meta property="og:image" content="https://sifath.net/images/sifath.jpg" />
+    <meta property="og:image" content={`https://sifath.net/images/sifath.jpg?v=${iconVersion}`} />
     <link rel="icon" type="image/png" sizes="32x32" href={`/favicon-32x32.png?v=${iconVersion}`} />
     <link rel="icon" type="image/png" sizes="16x16" href={`/favicon-16x16.png?v=${iconVersion}`} />
     <link rel="apple-touch-icon" sizes="180x180" href={`/apple-touch-icon.png?v=${iconVersion}`} />
